@@ -70,7 +70,9 @@ CONFIG_SCHEMA = cv.All(
                 web_server_base.WebServerBase
             ),
             cv.Optional(CONF_INCLUDE_INTERNAL, default=False): cv.boolean,
-            cv.Optional(CONF_OTA, default=True): cv.boolean,
+            cv.SplitDefault(
+                CONF_OTA, esp8266=True, esp32_arduino=True, esp32_idf=False
+            ): cv.boolean,
             cv.Optional(CONF_LOCAL): cv.boolean,
         }
     ).extend(cv.COMPONENT_SCHEMA),
