@@ -6,6 +6,7 @@
 #include "esphome/core/entity_base.h"
 #include "esphome/core/log.h"
 #include "esphome/core/util.h"
+#include "esphome/core/version.h"
 
 #ifdef USE_ARDUINO
 #include "StreamString.h"
@@ -104,8 +105,12 @@ void WebServer::setup() {
     // Configure reconnect timeout and send config
 
     client->send(json::build_json([this](JsonObject root) {
+#if ESPHOME_VERSION_CODE >= VERSION_CODE(2023, 1, 0)
                    root["title"] = App.get_friendly_name().empty() ? App.get_name() : App.get_friendly_name();
                    root["comment"] = App.get_comment();
+#else
+                   root["title"] = App.get_name();
+#endif
                    root["ota"] = this->allow_ota_;
                    root["lang"] = "en";
                  }).c_str(),
