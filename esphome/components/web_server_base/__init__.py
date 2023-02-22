@@ -10,8 +10,9 @@ DEPENDENCIES = ["network"]
 def AUTO_LOAD():
     if CORE.using_arduino:
         return ["async_tcp"]
-    elif CORE.using_esp_idf:
+    if CORE.using_esp_idf:
         return ["web_server_idf"]
+    return []
 
 
 web_server_base_ns = cg.esphome_ns.namespace("web_server_base")
