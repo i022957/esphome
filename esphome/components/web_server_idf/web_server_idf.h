@@ -16,8 +16,6 @@ namespace web_server_idf {
 #define PGM_P const char *
 #define strncpy_P strncpy
 
-using String = std::string;
-
 class AsyncWebParameter {
  public:
   AsyncWebParameter(std::string value) : value_(std::move(value)) {}
