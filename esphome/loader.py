@@ -71,10 +71,7 @@ class ComponentManifest:
 
     @property
     def auto_load(self) -> list[str]:
-        al = getattr(self.module, "AUTO_LOAD", [])
-        if callable(al):
-            return al()
-        return al
+        return getattr(self.module, "AUTO_LOAD", [])
 
     @property
     def codeowners(self) -> list[str]:
