@@ -84,7 +84,7 @@ class EthernetComponent : public Component {
   uint8_t miso_pin_;
   uint8_t mosi_pin_;
   uint8_t cs_pin_;
-  uint8_t interrupt_pin_;
+  uint8_t interrupt_pin_{-1};
   int reset_pin_{-1};
   int phy_addr_spi_{-1};
   int clock_speed_{30 * 1000000};
