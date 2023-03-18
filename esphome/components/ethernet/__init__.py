@@ -128,7 +128,7 @@ SPI_SCHEMA = BASE_SCHEMA.extend(
             cv.Required(CONF_MISO_PIN): pins.internal_gpio_input_pin_number,
             cv.Required(CONF_MOSI_PIN): pins.internal_gpio_output_pin_number,
             cv.Required(CONF_CS_PIN): pins.internal_gpio_output_pin_number,
-            cv.Required(CONF_INTERRUPT_PIN): pins.internal_gpio_input_pin_number,
+            cv.Optional(CONF_INTERRUPT_PIN): pins.internal_gpio_input_pin_number,
             # default internally to -1 if not set (means disabled)
             cv.Optional(CONF_RESET_PIN): pins.internal_gpio_output_pin_number,
             # W5500 should operate stable up to 33.3 according to the datasheet.
@@ -175,7 +175,8 @@ async def to_code(config):
         cg.add(var.set_miso_pin(config[CONF_MISO_PIN]))
         cg.add(var.set_mosi_pin(config[CONF_MOSI_PIN]))
         cg.add(var.set_cs_pin(config[CONF_CS_PIN]))
-        cg.add(var.set_interrupt_pin(config[CONF_INTERRUPT_PIN]))
+        if CONF_INTERRUPT_PIN in config:
+            cg.add(var.set_interrupt_pin(config[CONF_INTERRUPT_PIN]))
         if CONF_RESET_PIN in config:
             cg.add(var.set_reset_pin(config[CONF_RESET_PIN]))
         cg.add(var.set_clock_speed(config[CONF_CLOCK_SPEED]))
